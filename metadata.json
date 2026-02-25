@@ -1,0 +1,5 @@
+{
+  "name": "ShowTime - Movie & Event Ticketing",
+  "description": "A responsive UI clone of a ticketing platform like BookMyShow, built with pure HTML, CSS, and vanilla JavaScript.",
+  "requestFramePermissions": ["geolocation"]
+}

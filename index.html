@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowTime | Movie & Event Tickets</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="logo">
+                <h1>ShowTime</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for Movies, Events, Plays, Sports and Activities">
+            </div>
+            <div class="header-right">
+                <div class="location-dropdown" id="location-trigger">
+                    <span id="current-location">Trichy</span>
+                    <i class="arrow-down"></i>
+                </div>
+                <button class="btn-signin" id="signin-trigger">Sign In</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sign In Modal -->
+    <div id="signin-modal" class="modal">
+        <div class="modal-content signin-content">
+            <div class="modal-header">
+                <h3>Get Started</h3>
+                <span class="close-modal" id="close-signin">&times;</span>
+            </div>
+            <div class="modal-body signin-body">
+                <div class="social-login">
+                    <div id="google-signin-button" style="display: flex; justify-content: center;"></div>
+                    <button class="social-btn apple">
+                        <i>🍎</i> Continue with Apple
+                    </button>
+                </div>
+                
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <form id="signin-form" class="signin-form">
+                    <div class="form-group">
+                        <label for="email-phone">Email or Mobile Number</label>
+                        <input type="text" id="email-phone" placeholder="Enter your email or mobile number" required>
+                    </div>
+                    <button type="submit" class="btn-continue">Continue</button>
+                </form>
+
+                <p class="terms">
+                    I agree to the <a href="#">Terms & Conditions</a> & <a href="#">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Modal -->
+    <div id="location-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select Your Location</h3>
+                <span class="close-modal" id="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="search-location">
+                    <input type="text" id="location-input" placeholder="Search for your city (e.g. Chennai, Mumbai)">
+                    <button id="btn-search-location">Search</button>
+                </div>
+                <div class="detect-location">
+                    <button id="btn-detect-location">
+                        <i>📍</i> Use Current Location
+                    </button>
+                </div>
+                <div class="map-option">
+                    <p>Or select on map:</p>
+                    <div id="map-placeholder" class="map-container">
+                        <img src="https://picsum.photos/seed/map/600/300" alt="Map Placeholder" referrerPolicy="no-referrer">
+                        <div class="map-overlay">Click to select location</div>
+                    </div>
+                </div>
+                <div class="popular-cities">
+                    <p>Popular Cities:</p>
+                    <div class="city-chips">
+                        <span class="city-chip">Mumbai</span>
+                        <span class="city-chip">Delhi</span>
+                        <span class="city-chip">Bangalore</span>
+                        <span class="city-chip">Hyderabad</span>
+                        <span class="city-chip">Chennai</span>
+                        <span class="city-chip">Trichy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub Header -->
+    <nav class="sub-header">
+        <div class="container nav-content">
+            <ul class="nav-links">
+                <li><a href="#" id="nav-movies">Movies</a></li>
+                <li><a href="#">Stream</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Plays</a></li>
+                <li><a href="#" id="nav-sports">Sports</a></li>
+                <li><a href="#">Activities</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Carousel -->
+    <section class="hero-carousel">
+        <div class="carousel-container" id="carousel">
+            <div class="carousel-slide active" style="background-image: url('https://picsum.photos/seed/movie1/1200/400')">
+                <div class="slide-content">
+                    <h2>Epic Blockbuster Season</h2>
+                    <p>Book your tickets for the most awaited movies of the year!</p>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: url('https://picsum.photos/seed/movie2/1200/400')">
+                <div class="slide-content">
+                    <h2>Live Concerts & Events</h2>
+                    <p>Experience the magic of live performances in your city.</p>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: url('https://picsum.photos/seed/movie3/1200/400')">
+                <div class="slide-content">
+                    <h2>Sports Mania</h2>
+                    <p>Don't miss out on the thrill of the game. Catch it live!</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+        <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+    </section>
+
+    <main class="container">
+        <!-- Recommended Movies Section -->
+        <section id="movies-section" class="content-section">
+            <div class="section-header">
+                <h3>Recommended Movies</h3>
+                <a href="#" class="see-all">See All &#10095;</a>
+            </div>
+            <div class="grid-layout">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/goat/300/450" alt="GOAT" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="card-info">
+                        <h4>GOAT</h4>
+                        <p>Action/Thriller</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/leo/300/450" alt="Leo" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="card-info">
+                        <h4>Leo</h4>
+                        <p>Action/Thriller</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/deadpool/300/450" alt="Deadpool & Wolverine" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="card-info">
+                        <h4>Deadpool & Wolverine</h4>
+                        <p>Action/Comedy</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/avengers/300/450" alt="Avengers: Secret Wars" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="card-info">
+                        <h4>Avengers: Secret Wars</h4>
+                        <p>Action/Sci-Fi</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/joker/300/450" alt="Joker 2" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="card-info">
+                        <h4>Joker: Folie à Deux</h4>
+                        <p>Drama/Thriller</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Live Events Section -->
+        <section id="events-section" class="content-section">
+            <div class="section-header">
+                <h3>Top Live Events</h3>
+                <a href="#" class="see-all">See All &#10095;</a>
+            </div>
+            <div class="grid-layout">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/f1/300/450" alt="Formula 1" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="card-info">
+                        <h4>Formula 1 Grand Prix</h4>
+                        <p>Sports</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/comedy/300/450" alt="Comedy" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="card-info">
+                        <h4>Stand-up Comedy Special</h4>
+                        <p>Comedy</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/cricket/300/450" alt="Cricket" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="card-info">
+                        <h4>Local Cricket Match</h4>
+                        <p>Sports</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/concert/300/450" alt="Concert" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="card-info">
+                        <h4>Music Festival 2024</h4>
+                        <p>Music</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picsum.photos/seed/theatre/300/450" alt="Theatre" referrerPolicy="no-referrer">
+                    </div>
+                    <div class="card-info">
+                        <h4>Shakespeare in the Park</h4>
+                        <p>Plays</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
