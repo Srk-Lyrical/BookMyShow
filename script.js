@@ -190,6 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function openSigninModal() {
         signinModal.style.display = 'block';
         document.body.style.overflow = 'hidden';
+        // Re-render Google button to ensure it has the correct width now that container is visible
+        initGoogleSignIn();
     }
 
     function closeSigninModal() {
@@ -219,32 +221,56 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Google Sign-In Initialization ---
     window.handleCredentialResponse = (response) => {
         console.log("Encoded JWT ID token: " + response.credential);
-        // In a real app, you would verify this token on your server
         alert("Google Sign-In successful!");
         closeSigninModal();
         signinTrigger.textContent = 'Profile';
     };
 
     const initGoogleSignIn = () => {
-        const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "YOUR_GOOGLE_CLIENT_ID_HERE";
+        const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+        const buttonContainer = document.getElementById("google-signin-button");
         
-        if (clientId === "YOUR_GOOGLE_CLIENT_ID_HERE") {
+        if (!clientId || clientId === "YOUR_GOOGLE_CLIENT_ID_HERE") {
             console.warn("Google Client ID not set. Please provide your OAuth ID.");
+            if (buttonContainer) {
+                buttonContainer.innerHTML = `
+                    <button class="social-btn google" style="width: 100%; justify-content: center;">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                        Continue with Google (ID Required)
+                    </button>
+                `;
+                buttonContainer.querySelector('.google').onclick = () => {
+                    alert("Please set your VITE_GOOGLE_CLIENT_ID in the environment variables to enable real Google Sign-In.");
+                };
+            }
+            return;
         }
 
-        if (window.google) {
-            google.accounts.id.initialize({
-                client_id: clientId,
-                callback: window.handleCredentialResponse
-            });
+        const renderGoogleButton = () => {
+            if (window.google && window.google.accounts) {
+                google.accounts.id.initialize({
+                    client_id: clientId,
+                    callback: window.handleCredentialResponse
+                });
 
-            google.accounts.id.renderButton(
-                document.getElementById("google-signin-button"),
-                { theme: "outline", size: "large", width: "380" } // Adjust width to match Apple button
-            );
-        }
+                google.accounts.id.renderButton(
+                    buttonContainer,
+                    { 
+                        theme: "outline", 
+                        size: "large", 
+                        width: buttonContainer.offsetWidth || 380,
+                        text: "continue_with"
+                    }
+                );
+            } else {
+                // Retry if script not loaded yet
+                setTimeout(renderGoogleButton, 500);
+            }
+        };
+
+        renderGoogleButton();
     };
 
-    // Initialize Google Sign-In after a short delay to ensure script is loaded
-    setTimeout(initGoogleSignIn, 1000);
+    // Initialize Google Sign-In
+    initGoogleSignIn();
 });

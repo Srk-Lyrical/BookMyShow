@@ -362,6 +362,7 @@ body {
     font-size: 14px;
     font-weight: 500;
     transition: background 0.2s;
+    width: 100%;
 }
 
 .social-btn:hover {
